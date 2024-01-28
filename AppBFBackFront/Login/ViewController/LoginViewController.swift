@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         loginScreen.delegate = self
+        loginScreen.configureTextFieldsDelegate(delegate: self)
         view = loginScreen
     }
 }
@@ -31,6 +32,22 @@ extension LoginViewController: LoginScreenProtocol {
     
     func tappedLoginMetamask() {
         print("Clicou para logar com Metadask")
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print(#function)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print(#function)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print(#function)
+        textField.resignFirstResponder()
+        return false
     }
 }
 

@@ -15,7 +15,7 @@ protocol LoginScreenProtocol: AnyObject {
 
 class LoginScreen: UIView {
     
-    weak var delegate: (LoginScreenProtocol)?
+    weak var delegate: LoginScreenProtocol?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -143,10 +143,10 @@ class LoginScreen: UIView {
         button.setTitle("Entrar com a Metamask", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.layer.borderColor = UIColor(red: 231/255, green: 48/255, blue: 214/255, alpha: 1.0).cgColor
+        button.layer.borderColor = UIColor(red: 207/255, green: 0/255, blue: 192/255, alpha: 1.0).cgColor
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
-        button.layer.borderWidth = 1
+        button.layer.borderWidth = 2
         button.addTarget(self, action: #selector(tappedLoginMetamask), for: .touchUpInside)
         
         return button
@@ -156,6 +156,7 @@ class LoginScreen: UIView {
         let image = UIImageView()
         
         image.image = UIImage(named: "ImageDog")
+        image.contentMode = .scaleAspectFit
         
         return image
     }()
@@ -254,8 +255,13 @@ class LoginScreen: UIView {
     }
     
     private func configureLogoMetamaskImageView() {
-        addSubview(logoMetamaskImageView)
+        metaMaskButton.addSubview(logoMetamaskImageView)
         
         logoMetamaskImageView.anchor(top: metaMaskButton.topAnchor, leading: metaMaskButton.leadingAnchor, bottom: metaMaskButton.bottomAnchor, padding: UIEdgeInsets(top: 10, left: 50, bottom: 10, right: 0), size: CGSize(width: 20, height: 20))
+    }
+    
+    public func configureTextFieldsDelegate(delegate: UITextFieldDelegate) {
+        emailTextField.delegate = delegate
+        passwordTextField.delegate = delegate
     }
 }
