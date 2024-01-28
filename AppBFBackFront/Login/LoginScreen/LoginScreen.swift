@@ -7,7 +7,15 @@
 
 import UIKit
 
+protocol LoginScreenProtocol: AnyObject {
+    func tappedRecoveryPassword()
+    func tappedLogin()
+    func tappedLoginMetamask()
+}
+
 class LoginScreen: UIView {
+    
+    weak var delegate: (LoginScreenProtocol)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -144,16 +152,24 @@ class LoginScreen: UIView {
         return button
     }()
     
+    lazy var logoMetamaskImageView: UIImageView = {
+        let image = UIImageView()
+        
+        image.image = UIImage(named: "ImageDog")
+        
+        return image
+    }()
+    
     @objc func tappedRecoveryPassword(_ sender: UIButton) {
-        print("Recupera senha")
+        delegate?.tappedRecoveryPassword()
     }
     
     @objc func tappedLogin(_ sender: UIButton) {
-        print("Logou")
+        delegate?.tappedLogin()
     }
     
     @objc func tappedLoginMetamask(_ sender: UIButton) {
-        print("Logou")
+        delegate?.tappedLoginMetamask()
     }
     
     private func configureElements() {
@@ -167,6 +183,7 @@ class LoginScreen: UIView {
         configureLoginButton()
         configureSeparatorView()
         configureMetaMaskButton()
+        configureLogoMetamaskImageView()
     }
     
     private func configureImageScreen() {
@@ -234,5 +251,11 @@ class LoginScreen: UIView {
         addSubview(metaMaskButton)
         
         metaMaskButton.anchor(top: separatorView.bottomAnchor, leading: emailTextField.leadingAnchor, trailing: emailTextField.trailingAnchor, padding: UIEdgeInsets(top: 60, left: 0, bottom: 0, right: 0), size: CGSize(width: 0, height: 40))
+    }
+    
+    private func configureLogoMetamaskImageView() {
+        addSubview(logoMetamaskImageView)
+        
+        logoMetamaskImageView.anchor(top: metaMaskButton.topAnchor, leading: metaMaskButton.leadingAnchor, bottom: metaMaskButton.bottomAnchor, padding: UIEdgeInsets(top: 10, left: 50, bottom: 10, right: 0), size: CGSize(width: 20, height: 20))
     }
 }

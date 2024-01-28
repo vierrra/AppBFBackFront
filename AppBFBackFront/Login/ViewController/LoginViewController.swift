@@ -14,7 +14,23 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loginScreen.delegate = self
         view = loginScreen
+    }
+}
+
+extension LoginViewController: LoginScreenProtocol {
+    
+    func tappedRecoveryPassword() {
+        print("Recuperar senha")
+    }
+    
+    func tappedLogin() {
+        print("Clicou para logar")
+    }
+    
+    func tappedLoginMetamask() {
+        print("Clicou para logar com Metadask")
     }
 }
 
